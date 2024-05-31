@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumir servicio de estado</title>
+</head>
+<body>
+    <h1>Estado del Servidor</h1>
+    <div id="status"></div>
+
+
+    <script>
+        // Realiza una solicitud HTTP GET al servicio
+        fetch('http://localhost:8080/status')
+            .then(response => response.json()) // Parsea la respuesta como JSON
+            .then(data => {
+                // Manipula los datos recibidos
+                document.getElementById('status').innerHTML = `
+                    <p><strong>Mensaje:</strong> ${data.message}</p>
+                    <p><strong>Fecha y Hora:</strong> ${data.timestamp}</p>
+                `;
+            })
+            .catch(error => {
+                // Manejo de errores
+                console.error('Error al obtener el estado del servidor:', error);
+                document.getElementById('status').innerHTML = '<p>Ocurrió un error al obtener el estado del servidor.</p>';
+            });
+    </script>
+</body>
+</html>
